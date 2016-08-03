@@ -1,0 +1,50 @@
+<link rel="import" href="public/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<div [formGroup]="form">
+
+  <div [ngSwitch]="question.controlType">
+
+    <div *ngSwitchCase="'textbox'" class="input-field col s12">
+      <input name="{{question.key}}" placeholder="{{question.key}}" formControlName="{{question.key}}" [id]="question.key" [type]="question.type"
+        class="validate">
+      <label [attr.for]="question.key" class="tooltipped"  [attr.data-tooltip]="question.description">{{question.label}}</label>
+    </div>
+
+    <div *ngSwitchCase="'dropdown'" class="input-field col s12 ripple-selector">
+      <select [id]="question.key" name="{{question.key}}" formControlName="{{question.key}}">
+      <option value="" disabled selected>Choose your option</option>
+      <option  *ngFor="let opt of question.options" [value]="opt">{{opt}}</option>
+      </select>
+      <label [attr.for]="question.key">{{question.label}}</label>
+    </div>
+
+    <!--<div *ngSwitchCase="'dropdown'" class="col s12">
+      <paper-dropdown-menu [id]="question.key"  name="question.key" label="{{question.label}}">
+        <paper-listbox class="dropdown-content">
+          <paper-item *ngFor="let opt of question.options" >{{opt}}</paper-item>
+        </paper-listbox>
+      </paper-dropdown-menu>
+
+    </div>-->
+
+
+    <div *ngSwitchCase="'checkbox'" class="col s12">
+      <input class="filled-in" type="checkbox" name="{{question.key}}" formControlName="{{question.key}}" [id]="question.key">
+      <label [attr.for]="question.key">{{question.label}}</label>
+    </div>
+
+
+
+  </div>
+
+</div>
+<div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>
+
+<!--<div *ngSwitchCase="'dropdown'" class="col s12">
+
+      <paper-dropdown-menu [id]="question.key" *ngSwitchCase="'dropdown'" formControlName="{{question.key}}" label="{{question.label}}">
+        <paper-listbox class="dropdown-content">
+          <paper-item *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</paper-item>
+        </paper-listbox>
+      </paper-dropdown-menu>
+
+    </div>-->
